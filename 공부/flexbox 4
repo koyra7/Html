@@ -1,0 +1,46 @@
+<html>
+<head>
+  <style>
+
+    .violet {
+        width: 100px;
+        height: 100px;
+        background-color: violet;
+        color: white;
+    }
+    
+    .main {
+        display: flex;
+    }
+    
+    .dark {
+        width: 100px;
+        height: 100px;
+        background-color: black;
+        color: white;
+        
+    }
+    
+    .se {
+        position:relative;
+        right: 50px;
+        top: 50px;
+    }
+    
+    
+  </style>
+</head>
+<body>
+    <div class="main">
+        
+        <div class="violet">
+                    box1
+        </div>
+        
+        <div class="dark se">
+                box2
+         </div>
+
+    </div>
+</body>
+</html>

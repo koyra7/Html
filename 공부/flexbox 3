@@ -1,0 +1,48 @@
+<html>
+<head>
+  <style>
+
+    .violet {
+        width: 100px;
+        height: 100px;
+        background-color: violet;
+        color: white;
+    }
+    
+    .main {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .dark {
+        width: 200px;
+        height: 200px;
+        background-color: black;
+        color: white;
+        position: relative;
+        
+    }
+    
+    .ap {
+        position: absolute;
+        left : 50px;
+        top : 50px;
+    }
+    
+    
+  </style>
+</head>
+<body>
+    <div class="main">
+        
+        <div class="dark ">
+                box2
+             <div class="violet ap">
+                    box1
+             </div>
+           
+         </div>
+    
+    </div>
+</body>
+</html>

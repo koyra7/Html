@@ -1,0 +1,58 @@
+<html>
+<head>
+  <style>
+
+    .violet {
+        width: 100px;
+        height: 100px;
+        background-color: violet;
+        color: white;
+    }
+    
+    .main {
+        display: flex;
+    }
+    
+    .dark {
+        width: 400px;
+        height: 150px;
+        background-color: black;
+        color: white;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+    }
+    
+    .box1 {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+    }
+    
+    .box2 {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+    }
+    
+  </style>
+</head>
+<body>
+    <div class="main">
+        
+        <div class="dark">
+            box3
+        
+            <div class="violet box1">
+                box1
+            </div>
+        
+            <div class="violet box2">
+                box2
+            </div>
+          
+        </div>
+
+    </div>
+</body>
+</html>

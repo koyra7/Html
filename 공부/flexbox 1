@@ -1,0 +1,45 @@
+<html>
+<head>
+  <style>
+
+    .violet {
+        width: 100px;
+        height: 100px;
+        background-color: violet;
+        color: white;
+    }
+    
+    .main {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .second {
+        display:flex;
+    }
+    
+    .margin {
+        margin: 0 5px;
+    }
+    
+  </style>
+</head>
+<body>
+    <div class="main">
+        
+        <div class="violet">
+            box1
+         </div>
+         
+         <div class="second">
+            <div class="violet margin">
+                box2
+            </div>
+    
+            <div class="violet">
+                box3
+            </div>
+        </div>
+    </div>
+</body>
+</html>

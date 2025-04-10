@@ -1,0 +1,44 @@
+<html>
+<head>
+  <style>
+
+    .violet {
+        width: 100px;
+        height: 100px;
+        background-color: violet;
+        color: white;
+    }
+    
+    .main {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .center {
+        align-self: center;
+    }
+    
+     .end {
+        align-self: flex-end;
+    }
+    
+  </style>
+</head>
+<body>
+    <div class="main">
+        
+        <div class="violet">
+            box1
+         </div>
+         
+        <div class="violet center">
+                box2
+        </div>
+    
+        <div class="violet end">
+            box3
+        </div>
+        
+    </div>
+</body>
+</html>
