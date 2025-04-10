@@ -1,0 +1,64 @@
+<html>
+<head>
+  <style>
+   .box {
+       width:100px;
+       height: 100px;
+   }
+   
+   .red {
+       background-color:red;
+   }
+   
+   .yellow {
+       background-color:yellow;
+   }
+   
+   .blue {
+       background-color:blue;
+   }
+   
+   .locate {
+       position: absolute;
+       left: 30px;
+       top: 30px;
+   }
+  </style>
+</head>
+<body>
+    <!--position: fixed , absolute , sticky , relative ( top bottom right left )-->
+    <div class="box red">
+     box1
+    </div>
+    
+    <div class="box yellow locate">
+    box2
+    </div>
+    
+    <div class="box blue">
+    box3
+    </div>
+    
+    <div class="box blue">
+    box3
+    </div>
+    
+    <div class="box blue">
+    box3
+    </div>
+    
+    <div class="box blue">
+    box3
+    </div>
+    
+    <div class="box blue">
+    box3
+    </div>
+    
+    <div class="box blue">
+    box3
+    </div>
+    
+    
+</body>
+</html>
