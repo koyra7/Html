@@ -1,0 +1,44 @@
+<html>
+<head>
+  <style>
+
+    .mother {
+        border: 1px solid red;
+        display: flex;
+        justify-content: flex-end ; 
+        /*align-items: ; 가로정렬 세로 이동 */
+        height:100vh; /* vh 뷰 높이 전체  */
+        flex-direction: column; /* 세로로 기준 변경 
+        justify-content: flex-end ; 
+        align-items: ; 가로정렬 세로 이동 
+        둘의 기준도 바뀜 */ */ 
+    }
+    
+    .children {
+        background-color:violet;
+        width: 100px;
+        height: 100px;
+    }
+    
+    
+  </style>
+</head>
+<body>
+    <!--flexbox-->
+    <div class="mother">
+        <div class="children">
+            children1
+        </div>
+        
+        <div class="children">
+            children2
+        </div>
+        
+        <div class="children">
+            children3
+        </div>
+        
+    </div>
+    
+</body>
+</html>
