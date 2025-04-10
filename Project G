@@ -1,0 +1,217 @@
+<html>
+<head>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* 상단 */
+.ffontcolor:hover {
+  text-decoration: underline;
+}
+
+.f1fontcolor {
+  color: #1f1f1f;
+  font-size: 14px;
+  font-family: arial, sans-serif;
+  text-decoration: none;
+  margin: 10px 10px;
+}
+
+.f2fontcolor {
+  color: #1f1f1f;
+  font-size: 13px;
+  font-family: arial, sans-serif;
+  text-decoration: none;
+  margin: 10px 10px;
+}
+
+.pale {
+  margin-top: 10px;
+}
+
+.pa {
+  padding: 0 0 0 20px;
+}
+
+.pa1 {
+  padding: 0 10px 0 0;
+}
+
+.pa2 {
+  padding: 0 10px 0 0;
+}
+
+.pa3 {
+  padding: 0 10px 0 15px;
+}
+
+.navmar {
+  margin: 15px;
+  padding: 6px;
+}
+
+.pushright {
+  float: right;
+}
+
+body {
+  display: contents;
+}
+
+/* 중단 */
+
+.imgcenter {
+  margin: 300px 0;
+  text-align: center;
+}
+
+.input-size {
+  width: 582px;
+  height: 46px;
+  border: 1px solid #dfe1e5;
+  box-shadow: 0px 2px 8px 0px rgba(60, 64, 67, 0.25);
+  border-radius: 24px;
+  padding-left: 55px;
+  padding-right: 80px;
+  margin-top: 24px;
+}
+
+.search-icon {
+  position: relative;
+  left: 45px;
+  color: #9aa0a6;
+}
+
+.mic-icon {
+  position: relative;
+  right: 65px;
+  color: #9aa0a6;
+}
+
+.camera-icon {
+  position: relative;
+  right: 55px;
+  color: #9aa0a6;
+}
+
+.button-area {
+  padding-top: 18px;
+}
+
+.button {
+    background-color: #f8f9fa;
+    border: 1px solid #f8f9fa;
+    border-radius: 4px;
+    color: #3c4043;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin: 11px 4px;
+    padding: 0 16px;
+    line-height: 27px;
+    height: 36px;
+    min-width: 54px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+/*하단*/
+
+.korea {
+    color: #1f1f1f;
+    font-size: 14px;
+    font-family: arial, sans-serif;
+    text-decoration: none;
+}
+
+.low-area {
+  background: #f2f2f2;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+
+.low-line {
+  border-bottom: 1px solid #dadce0;
+  font-size: 15px;
+  padding: 15px 30px;
+  color: #1f1f1f;
+}
+
+.low-right {
+  float: right;
+}
+
+.lowfont {
+  font-size: 15px;
+  color: #1f1f1f;
+  font-family: Arial sans-serif;
+  text-decoration: none;
+  margin: 10px;
+}
+
+.low-line2 {
+  font-size: 15px;
+  padding: 15px 30px;
+  color: #1f1f1f;
+}
+
+.lowfont:hover {
+  text-decoration: underline
+}
+
+
+  </style>
+</head>
+
+<body>
+  <!-- 머리 -->
+  <div class="navmar">
+    <span>
+      <a class="f1fontcolor pa " href="#"> Google 정보</a>
+      <a class="f1fontcolor pa1 " href="#"> 스토어</a>
+    </span>
+
+    <span class="pushright">
+      <a class="f2fontcolor pa1" href="#"> Gmail</a>
+      <a class="f2fontcolor pa2" href="#"> 이미지</a>
+      <i class="fa-solid fa-bars "></i>  
+    </span>
+  </div>
+
+  <!-- 몸통 -->
+  <div class="imgcenter">
+    <img src="https://www.google.co.kr/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" width="272" height="92">
+    <div>
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input class="input-size" type="text">
+        <i class="fa-solid fa-microphone mic-icon "></i>
+        <i class="fa-solid fa-camera camera-icon"></i>
+    </div>
+    <div class="button-area">
+      <button class="button">Google 검색</button>
+      <button class="button">I'm Feeling Lucky</button>
+    </div>
+  </div> 
+  <!-- 발 -->
+  <div class="low-area">
+    <div class="low-line">
+      <a class="lowfont" href="#"> 대한민국 </a>
+    </div>
+    
+    <div class="low-line2">
+    <span>
+      <a class="lowfont" href="#"> 광고 </a>
+      <a class="lowfont" href="#"> 비즈니스 </a>
+      <a class="lowfont" href="#"> 검색의 원리 </a>
+    </span>
+
+    <span class="low-right">
+      <a class="lowfont" href="#"> 개인정보처리방침 </a>
+      <a class="lowfont" href="#"> 약관 </a>
+      <a class="lowfont" href="#"> 설정 </a>
+    </span>
+    </div>
+  </div>
+
+  
+</body>
+</html>
