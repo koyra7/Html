@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        .header_icon {
+            width: 95px;
+            height: 50px;
+            cursor: pointer;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            height: 100%;
+            width: 280px;
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
+
+        .text-white {
+            color: #ffffff !important;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .content {
+            transition: margin-left 0.3s ease;
+        }
+
+        .content.shifted {
+            margin-left: 280px;
+        }
+
+        .img-size {
+            width: 33%;
+            height: auto;
+            padding-left: 20px;
+        }
+
+        .card-bg-color {
+            background-color: rgba(156, 183, 187, 0.425);
+        }
+
+        .btn-position {
+            position: absolute;
+            right: 110px;
+        }
+
+        .im {
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .img-size {
+            width: 25%;
+            height: auto;
+            padding-left: 20px;
+        }
+
+        .mypostingbox {
+            width: 500px;
+            margin: 20px auto 0px auto;
+            border: 1px solid white;
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(-20px);
+        }
+
+        .mypostingbox.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mypobutton {
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .row-position {
+            margin: 20px auto 0px auto;
+            width: 2000px;
+        }
+    </style>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCUZh_zWiSulQCAbCyDcGOmLfVIO472Ezs",
+            authDomain: "sparta-ef7dd.firebaseapp.com",
+            projectId: "sparta-ef7dd",
+            storageBucket: "sparta-ef7dd.firebasestorage.app",
+            messagingSenderId: "607107631828",
+            appId: "1:607107631828:web:68fdcb72d5447e30608941",
+            measurementId: "G-0EM00QCVE6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 페이지 로드 시 Firestore에서 데이터 가져와 카드 표시
+        async function loadPosts() {
+            const cardContainer = document.getElementById('cardContainer');
+            cardContainer.innerHTML = ''; // 기존 카드 초기화
+            const querySnapshot = await getDocs(collection(db, "posts"));
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const newCard = document.createElement('div');
+                newCard.className = 'col img-size';
+                newCard.innerHTML = `
+                    <div class="card card-bg-color">
+                        <img src="${data.image}" class="card-img-top im" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">${data.title}</h5>
+                            <p class="card-text">${data.comment}</p>
+                        </div>
+                    </div>
+                `;
+                cardContainer.prepend(newCard);
+            });
+        }
+
+        // 페이지 로드 시 실행
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPosts();
+
+            // 날씨 API 호출
+            fetch("https://13.209.69.177.nip.io/sparta_api/weather/seoul")
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('C').textContent = data.temp;
+                })
+                .catch(error => console.error('날씨 데이터 가져오기 실패:', error));
+
+            // Sidebar 토글
+            document.getElementById('sidebarToggle').addEventListener('click', function (e) {
+                e.preventDefault();
+                const sidebar = document.querySelector('.sidebar');
+                const content = document.querySelector('.content');
+                sidebar.classList.toggle('active');
+                content.classList.toggle('shifted');
+            });
+
+            // 게시물 입력 폼 토글
+            document.getElementById('savebtn').addEventListener('click', function (e) {
+                e.preventDefault();
+                const postingBox = document.getElementById('postingbox');
+                postingBox.classList.toggle('active');
+            });
+
+            // 게시물 저장 및 Firestore에 추가
+            document.getElementById('postinbtn').addEventListener('click', async function (e) {
+                e.preventDefault();
+                const image = document.getElementById('image').value;
+                const title = document.getElementById('title').value;
+                const comment = document.getElementById('comment').value;
+
+                if (image && title && comment) {
+                    try {
+                        const doc = {
+                            image: image,
+                            title: title,
+                            comment: comment,
+                            timestamp: new Date()
+                        };
+                        await addDoc(collection(db, "posts"), doc);
+                        alert("저장 완료!");
+                        document.getElementById('postingbox').classList.remove('active');
+                        document.getElementById('image').value = '';
+                        document.getElementById('title').value = '';
+                        document.getElementById('comment').value = '';
+                        loadPosts(); // 카드 목록 새로고침
+                    } catch (error) {
+                        console.error("Firestore 저장 실패:", error);
+                        alert("저장 중 오류가 발생했습니다.");
+                    }
+                } else {
+                    alert('이미지 URL, 이름, 코멘트를 모두 입력해주세요.');
+                }
+            });
+        });
+    </script>
+</head>
+
+<body class="text-bg-dark p-3">
+    <!-- Header -->
+    <header class="p-3 mb-3 border-bottom">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none"
+                    id="sidebarToggle">
+                    <img src="https://github.com/koyra7/Html/blob/main/image2.png?raw=true" width="16" height="16"
+                        fill="currentColor" class="bi bi-grid-3x3-gap-fill header_icon" viewBox="0 0 16 16">
+                </a>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="#" class="nav-link px-2 link-secondary text-white">고양이 발자국</a></li>
+                </ul>
+                <button id="savebtn" type="button" class="btn btn-outline-light btn-position">추억 기록하기</button>
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                </form>
+                <div class="dropdown text-end">
+                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory1.daumcdn.net%2Ftistory%2F8269369%2Fattach%2Fcf69c507f5164dfcabf93aa20c504f7a"
+                            alt="mdo" width="32" height="32" class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="https://yoj21.tistory.com/category">프로필</a></li>
+                        <li><a class="dropdown-item" href="https://www.tistory.com/">티스토리 홈</a></li>
+                        <li><a class="dropdown-item" href="https://www.tistory.com/feed">피드</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="d-flex">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark sidebar" style="width: 280px;">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <img src="https://github.com/koyra7/Html/blob/main/image1.png?raw=true" alt="고양이 발자국 아이콘" width="40"
+                    height="32" class="me-2 pe-none">
+                <span src="fs-4">고양이 발자국</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="https://yoj21.tistory.com/" class="nav-link active" aria-current="page">
+                        <svg class="bi pe-none me-2" width="16" height="16" aria-hidden="true">
+                            <use xlink:href="#home"></use>
+                        </svg>
+                        블로그 홈
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory1.daumcdn.net%2Ftistory%2F8269369%2Fattach%2Fcf69c507f5164dfcabf93aa20c504f7a"
+                        alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong></strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                    <li><a class="dropdown-item" href="https://yoj21.tistory.com/category">프로필</a></li>
+                    <li><a class="dropdown-item" href="#">설정</a></li>
+                    <li><a class="dropdown-item" href="#">윤곽</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content flex-grow-1">
+            <p>현재 서울 기온: <span id="C"></span>°C</p> <!-- 날씨 API로 기온 표시 -->
+        </div>
+    </div>
+
+    <div class="mypostingbox" id="postingbox">
+        <div class="form-floating mb-3">
+            <input type="url" class="form-control" id="image" placeholder="이미지 URL">
+            <label for="image">이미지 URL</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="title" placeholder="이름">
+            <label for="title">이름</label>
+        </div>
+        <div class="form-floating mb-3">
+            <textarea class="form-control" id="comment" placeholder="코멘트" style="height: 100px;"></textarea>
+            <label for="comment">코멘트</label>
+            <button id="postinbtn" type="button" class="btn btn-danger mypobutton">기록하기</button>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-4 g-4 row-position" id="cardContainer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
